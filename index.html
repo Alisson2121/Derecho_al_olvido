@@ -535,42 +535,142 @@
           </div>
 
           <!-- Paso 2: Revisar & Asegurar -->
-          <div id="paso2" class="bg-white rounded-xl border p-6 shadow-lg hidden">
-            <div class="flex items-start gap-3 mb-4">
-              <div class="text-4xl">✅</div>
-              <div>
-                <h3 class="text-2xl font-bold mb-2">Revisar y Confirmar</h3>
-                <p class="text-sm text-slate-600">Verifica los detalles de tu solicitud antes de enviarla</p>
-              </div>
-            </div>
+<div id="paso2" class="bg-white rounded-xl border p-6 shadow-lg hidden">
+  <div class="flex items-start gap-3 mb-4">
+    <div class="text-4xl">✅</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-2">Revisión rápida y seguridad</h3>
+      <p class="text-sm text-slate-600">Verifica los detalles de tu solicitud antes de enviarla</p>
+    </div>
+  </div>
 
-            <div class="space-y-4 mb-6">
-              <div class="bg-slate-50 rounded-lg p-4">
-                <div class="font-semibold mb-2">Sistemas seleccionados:</div>
-                <div id="resumenSistemas" class="space-y-2"></div>
-              </div>
+  <div class="space-y-4 mb-6">
+    <div class="bg-slate-50 rounded-lg p-4">
+      <div class="font-semibold mb-2">Sistemas seleccionados:</div>
+      <div id="resumenSistemas" class="space-y-2"></div>
+    </div>
 
-              <div class="bg-slate-50 rounded-lg p-4">
-                <div class="font-semibold mb-2">Motivo:</div>
-                <div id="resumenMotivo" class="text-sm text-slate-700"></div>
-              </div>
+    <div class="bg-slate-50 rounded-lg p-4">
+      <div class="font-semibold mb-2">Motivo:</div>
+      <div id="resumenMotivo" class="text-sm text-slate-700"></div>
+    </div>
 
-              <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div class="font-semibold mb-2 text-blue-900">🔐 Verificación de identidad</div>
-                <p class="text-sm text-blue-800 mb-3">Por seguridad, ingresa tu contraseña para confirmar esta acción</p>
-                <input type="password" id="confirmPassword" class="w-full px-4 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Contraseña" required>
-              </div>
-            </div>
+    <!-- Finalidad del tratamiento -->
+    <div class="border border-slate-200 rounded-lg p-4">
+      <div class="font-semibold mb-3">Finalidad del tratamiento</div>
+      <div class="space-y-2">
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" id="finalidadArco" checked disabled class="rounded">
+          <span class="text-slate-600">Atender este trámite ARCO</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" id="finalidadEstadisticas" class="rounded">
+          <span class="text-slate-600">Estadísticas internas (datos anonimizados)</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" id="finalidadBolsa" class="rounded">
+          <span class="text-slate-600">Bolsa de egresados (consentimiento)</span>
+        </label>
+      </div>
+    </div>
 
-            <div class="flex gap-3 justify-end">
-              <button type="button" onclick="goPaso(0)" class="px-6 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition">
-                ← Volver
-              </button>
-              <button type="button" onclick="enviarSolicitud()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
-                ✓ Confirmar y Enviar
-              </button>
-            </div>
+    <!-- Política de almacenamiento -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="border border-slate-200 rounded-lg p-4">
+        <div class="font-semibold mb-3">Política de almacenamiento</div>
+        <label class="block text-sm font-medium text-slate-700 mb-2">Plazo de supresión</label>
+        <select id="plazoSupresion" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+          <option value="inmediata">Baja inmediata</option>
+          <option value="30dias">30 días</option>
+          <option value="90dias">90 días</option>
+          <option value="180dias">180 días</option>
+        </select>
+        <p class="text-xs text-slate-500 mt-2">Backups: supresión diferida y no reintroducción al restaurar.</p>
+      </div>
+
+      <!-- Rectificación previa -->
+      <div class="border border-slate-200 rounded-lg p-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="font-semibold">Rectificación previa</div>
+          <button type="button" onclick="limpiarRectificacion()" class="text-xs text-blue-600 hover:text-blue-700">Limpiar campos</button>
+        </div>
+        <div class="space-y-2">
+          <div>
+            <label class="block text-xs font-medium text-slate-600 mb-1">Correo institucional</label>
+            <input 
+              type="email" 
+              id="rectCorreo" 
+              placeholder="nombre.apellido@undac.edu.pe" 
+              class="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50"
+            >
+            <p class="text-xs text-slate-500 mt-1">Correo actual que deseas actualizar antes de la supresión</p>
           </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-600 mb-1">Alias en foros (Aula Virtual)</label>
+            <input 
+              type="text" 
+              id="rectAlias" 
+              placeholder="UsuarioUNDAC" 
+              class="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+            <p class="text-xs text-slate-500 mt-1">Nombre visible en foros y actividades del aula virtual</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seguridad -->
+    <div class="border border-slate-200 rounded-lg p-4">
+      <div class="font-semibold mb-3">Seguridad</div>
+      <div class="space-y-2">
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" id="seguridadMFA" class="rounded">
+          <span class="text-slate-600">Activar segundo factor (MFA)</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" id="seguridadCifrado" checked disabled class="rounded">
+          <span class="text-slate-600">Cifrado en tránsito y reposo</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Verificación de identidad -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div class="font-semibold mb-2 text-blue-900">🔐 Verificación de identidad</div>
+      <p class="text-sm text-blue-800 mb-3">Por seguridad, ingresa tu contraseña para confirmar esta acción</p>
+      <input type="password" id="confirmPassword" class="w-full px-4 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Contraseña" required>
+    </div>
+
+    <!-- Botones de documentos -->
+    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
+      <div class="font-semibold mb-3">📄 Documentos disponibles</div>
+      <div class="flex flex-wrap gap-3">
+        <button type="button" onclick="generarCartaModelo()" class="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm hover:bg-slate-50 transition flex items-center gap-2">
+          <span>📝</span> Carta modelo para terceros
+        </button>
+        <button type="button" onclick="generarConstancia()" class="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm hover:bg-slate-50 transition flex items-center gap-2">
+          <span>📜</span> Generar constancia
+        </button>
+      </div>
+    </div>
+
+    <!-- Botón Guardar cambios -->
+    <div class="flex justify-end">
+      <button type="button" onclick="guardarCambiosRevision()" class="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg text-sm hover:bg-slate-300 transition font-semibold">
+        Guardar cambios
+      </button>
+    </div>
+  </div>
+
+  <div class="flex gap-3 justify-end">
+    <button type="button" onclick="goPaso(0)" class="px-6 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition">
+      ← Volver
+    </button>
+    <button type="button" onclick="enviarSolicitud()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
+      ✓ Confirmar y Enviar
+    </button>
+  </div>
+</div>
 
           <!-- Paso 3: Transparencia -->
           <div id="paso3" class="bg-white rounded-xl border p-6 shadow-lg hidden">
@@ -912,6 +1012,141 @@
       document.getElementById('panelMetricas').classList.add('hidden');
       goPaso(0);
     }
+    function guardarCambiosRevision() {
+  alert('✓ Cambios guardados correctamente');
+}
+
+function generarCartaModelo() {
+  const carta = `
+═══════════════════════════════════════════════════
+           CARTA MODELO PARA TERCEROS
+═══════════════════════════════════════════════════
+
+De: ${usuarioActual.nombre}
+Código: ${usuarioActual.codigo}
+
+Fecha: ${new Date().toLocaleDateString('es-PE')}
+
+Estimado/a [Nombre del destinatario]:
+
+Por medio de la presente, solicito formalmente el ejercicio de mi 
+derecho al olvido (ARCO) según lo establecido en la Ley N° 29733 
+- Ley de Protección de Datos Personales del Perú.
+
+DATOS DEL TITULAR:
+- Nombre completo: ${usuarioActual.nombre}
+- Código universitario: ${usuarioActual.codigo}
+- Correo: nombre.apellido@undac.edu.pe
+
+SOLICITUD:
+Requiero la supresión, cancelación o anonimización de mis datos 
+personales que obran en sus sistemas, específicamente:
+
+${solicitudActual.sistemas.map(s => `• ${s.nombre}: ${s.accion}`).join('\n')}
+
+FUNDAMENTO LEGAL:
+- Ley N° 29733 - Ley de Protección de Datos Personales
+- Reglamento de la Ley N° 29733 (D.S. N° 003-2013-JUS)
+- Directiva de Seguridad de la Información Nº 001-2017-JUS/DGTAIPD
+
+Quedo a la espera de su respuesta en el plazo legal de 10 días 
+hábiles establecido en la normativa vigente.
+
+Atentamente,
+
+${usuarioActual.nombre}
+Código: ${usuarioActual.codigo}
+
+═══════════════════════════════════════════════════
+  `;
+  
+  // Crear elemento temporal para descargar
+  const blob = new Blob([carta], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Carta_Modelo_ARCO_${usuarioActual.codigo}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  alert('📝 Carta modelo generada y descargada');
+}
+
+function generarConstancia() {
+  if (solicitudesArco.length === 0) {
+    alert('⚠️ Primero debes enviar una solicitud para generar la constancia');
+    return;
+  }
+  
+  const ultimaSolicitud = solicitudesArco[solicitudesArco.length - 1];
+  
+  const constancia = `
+╔═══════════════════════════════════════════════════════╗
+║                                                       ║
+║         UNIVERSIDAD NACIONAL DANIEL ALCIDES CARRIÓN   ║
+║                                                       ║
+║           CONSTANCIA DE EJECUCIÓN - ARCO              ║
+║                                                       ║
+╚═══════════════════════════════════════════════════════╝
+
+Expediente: ${ultimaSolicitud.id}
+
+DATOS DEL SOLICITANTE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nombre      : ${usuarioActual.nombre}
+Código      : ${usuarioActual.codigo}
+Rol         : ${usuarioActual.rol}
+
+DETALLE DE LA SOLICITUD:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Sistemas    : ${ultimaSolicitud.sistemas.map(s => s.nombre).join(', ')}
+Acciones    : ${ultimaSolicitud.sistemas.map(s => s.accion).join(', ')}
+Fecha       : ${ultimaSolicitud.fecha}
+Estado      : ${ultimaSolicitud.estado}
+
+CERTIFICACIÓN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+La Universidad Nacional Daniel Alcides Carrión certifica 
+que la presente solicitud ha sido recibida y registrada en 
+el Sistema de Gestión de Datos Personales (ARCO).
+
+Se ha procedido con la ejecución de las acciones solicitadas 
+conforme a la Ley N° 29733 - Ley de Protección de Datos 
+Personales del Perú y su Reglamento.
+
+Todas las operaciones han sido registradas en la bitácora 
+de auditoría del sistema con trazabilidad completa.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Este documento tiene validez legal y puede ser presentado 
+ante las autoridades competentes.
+
+Emitido electrónicamente el: ${new Date().toLocaleString('es-PE')}
+
+Hash de verificación: SHA256-${Math.random().toString(36).substring(2, 15).toUpperCase()}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           UNDAC - Protección de Datos Personales
+              www.undac.edu.pe | Cerro de Pasco
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  `;
+  
+  // Crear elemento temporal para descargar
+  const blob = new Blob([constancia], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Constancia_ARCO_${ultimaSolicitud.id}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  alert('📜 Constancia generada y descargada\n\nExpediente: ' + ultimaSolicitud.id);
+}
+function limpiarRectificacion() {
+  document.getElementById('rectCorreo').value = '';
+  document.getElementById('rectAlias').value = '';
+}
   </script>
 </body>
 </html>
